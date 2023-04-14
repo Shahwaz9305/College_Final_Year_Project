@@ -4,6 +4,13 @@
 {% endblock pagetitle %}
 {% block body %}
 
+<head>
+  <link
+    rel="stylesheet"
+    href="{{url_for('static', filename='styles/submit.css')}}"
+  />
+</head>
+
 <div>
   <div class="container">
     <!-- For demo purpose -->
@@ -12,16 +19,28 @@
         <h1 class="display-4" style="padding-top: 2%;font-weight: 400;color: rgb(4, 54, 4);""><b>{{title}}🍂</b></h1>
       </div>
     </div>
+
+    <!-- Image -->
     <center>
     <div class=" col">
+
+      <div class="card 1">
+        <div class="card_image">
+          <img src={{image_url}} >
+        </div>
+        
+<!--   </div>
           <div class="p-3 bg-white shadow rounded-lg" style="width: 30%;">
 
             <img src={{image_url}} width="350" height="350">
 
           </div>
-      </div>
-      </center>
+      </div> -->
+    </center>
+
       <br>
+
+      <!-- Discription -->
       <div class=" row ">
         <div class="col mx-auto">
           <div class="p-5 bg-white shadow rounded-lg" style="height: 95%;">
@@ -39,6 +58,8 @@
           </div>
         </div>
       </div>
+
+      <!-- Prevention -->
       <div class="row">
         <div class="col mx-auto">
           <div class="p-5 bg-white shadow rounded-lg" style="height:95%">
@@ -57,6 +78,8 @@
         </div>
 
         {% if pred!=4 %}
+        
+        <!-- Buy Product -->
         <div class="col mx-auto"">
         <div class=" p-5 bg-white shadow rounded-lg" style="height: 95%;">
           <center>
