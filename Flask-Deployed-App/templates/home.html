@@ -1,5 +1,6 @@
 {% extends 'base.html' %} {% block pagetitle %} Plant Disease Detection {%
 endblock pagetitle %} {% block body %}
+
 <style>
   body {
     overflow-x: hidden;
@@ -13,6 +14,174 @@ endblock pagetitle %} {% block body %}
     .mobile {
       display: none;
     }
+  }
+
+  /* image */
+  .card {
+    margin: 30px auto;
+    width: 300px;
+    height: 300px;
+    border-radius: 40px;
+    box-shadow: 5px 5px 30px 7px rgba(0, 0, 0, 0.25),
+      -5px -5px 30px 7px rgba(0, 0, 0, 0.22);
+    cursor: pointer;
+    transition: 0.4s;
+  }
+
+  .card .card_image {
+    width: inherit;
+    height: inherit;
+    border-radius: 40px;
+  }
+
+  .card .card_image img {
+    width: inherit;
+    height: inherit;
+    border-radius: 40px;
+    object-fit: cover;
+  }
+
+  .card .card_title {
+    text-align: center;
+    border-radius: 0px 0px 40px 40px;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+    margin-top: -0px;
+    height: 40px;
+  }
+
+  .card:hover {
+    transform: scale(0.9, 0.9);
+    box-shadow: 5px 5px 30px 15px rgba(0, 0, 0, 0.25),
+      -5px -5px 30px 15px rgba(0, 0, 0, 0.22);
+  }
+
+  .title-white {
+    color: white;
+  }
+
+  .title-black {
+    color: black;
+  }
+
+  @media all and (max-width: 500px) {
+    .card-list {
+      /* On small screens, we are no longer using row direction but column */
+      flex-direction: column;
+    }
+  }
+
+  /* button */
+  .container {
+    width: 1000px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  .container .btn {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 65px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .container .btn a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    padding: 10px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    overflow: hidden;
+    color: #043604;
+    font-weight: 100px;
+    font-size: 20px;
+    z-index: 1;
+    transition: 0.5s;
+    backdrop-filter: blur(15px);
+  }
+  .container .btn:hover a {
+    letter-spacing: 3px;
+  }
+  .container .btn a::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.15),
+      transparent
+    );
+    transform: skewX(45deg) translate(0);
+    transition: 0.5s;
+    filter: blur(0px);
+  }
+  .container .btn:hover a::before {
+    transform: skewX(45deg) translate(200px);
+  }
+  .container .btn::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+    bottom: -5px;
+    width: 30px;
+    height: 10px;
+    background: #f00;
+    border-radius: 10px;
+    transition: 0.5s;
+    transition-delay: 0.5;
+  }
+  .container .btn:hover::before /*lightup button*/ {
+    bottom: 0;
+    height: 50%;
+    width: 80%;
+    border-radius: 30px;
+  }
+
+  .container .btn::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+    top: -5px;
+    width: 30px;
+    height: 10px;
+    background: #61ff70;
+    border-radius: 10px;
+    transition: 0.5s;
+    transition-delay: 0.5;
+  }
+  .container .btn:hover::after /*lightup button*/ {
+    top: 0;
+    height: 50%;
+    width: 80%;
+    border-radius: 30px;
+  }
+
+  .container .btn:nth-child(1)::before, /*chnage 1*/
+  .container .btn:nth-child(1)::after {
+    background: #61ff70;
+    box-shadow: 0 0 5px #61ff70, 0 0 15px #61ff70, 0 0 30px #61ff70,
+      0 0 60px #61ff70;
   }
 </style>
 
@@ -51,17 +220,33 @@ endblock pagetitle %} {% block body %}
 
 <!-- Ai engine button -->
 <center class="laptop">
-  <a href="/index">
+  <div class="container">
+    <div class="btn"><a href="/index">AI Engine</a></div>
+  </div>
+
+  <!-- <a href="/index">
     <button class="bttn-pill bttn-lg btn-success">
       <b style="color: black">AI Engine</b>
     </button>
-  </a>
+  </a> -->
 </center>
 
 <!-- Items vegies and fruits -->
+
+<!-- row 1 -->
 <div class="row p-5 laptop">
   <div class="col">
-    <div class="p-3 bg-white shadow rounded-lg" style="width: 90%; height: 92%">
+    <div class="card 1">
+      <div class="card_image">
+        <img
+          src="https://post.healthline.com/wp-content/uploads/2020/09/Do_Apples_Affect_Diabetes_and_Blood_Sugar_Levels-732x549-thumbnail-1-732x549.jpg"
+        />
+      </div>
+      <div class="card_title title-white">
+        <p>Apple</p>
+      </div>
+    </div>
+    <!-- <div class="p-3 bg-white shadow rounded-lg" style="width: 90%; height: 92%">
       <img
         src="https://post.healthline.com/wp-content/uploads/2020/09/Do_Apples_Affect_Diabetes_and_Blood_Sugar_Levels-732x549-thumbnail-1-732x549.jpg"
         width="250"
@@ -70,11 +255,22 @@ endblock pagetitle %} {% block body %}
       <center>
         <p class="lead" style="font-weight: 500; color: black">Apple</p>
       </center>
-    </div>
+    </div> -->
   </div>
 
   <div class="col">
-    <div class="p-3 bg-white shadow rounded-lg" style="width: 90%; height: 92%">
+    <div class="card 1">
+      <div class="card_image">
+        <img
+          src="https://images.pexels.com/photos/1153655/pexels-photo-1153655.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        />
+      </div>
+      <div class="card_title title-white">
+        <p>Blueberry</p>
+      </div>
+    </div>
+
+    <!-- <div class="p-3 bg-white shadow rounded-lg" style="width: 90%; height: 92%">
       <img
         src="https://images.pexels.com/photos/1153655/pexels-photo-1153655.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         width="250"
@@ -83,11 +279,22 @@ endblock pagetitle %} {% block body %}
       <center>
         <p class="lead" style="font-weight: 500; color: black">Blueberry</p>
       </center>
-    </div>
+    </div> -->
   </div>
 
   <div class="col">
-    <div class="p-3 bg-white shadow rounded-lg" style="width: 90%; height: 92%">
+    <div class="card 1">
+      <div class="card_image">
+        <img
+          src="https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/slideshows/health_benefits_of_cherries_slideshow/1800x1200_health_benefits_of_cherries_slideshow.jpg"
+        />
+      </div>
+      <div class="card_title title-white">
+        <p>Cherry</p>
+      </div>
+    </div>
+
+    <!-- <div class="p-3 bg-white shadow rounded-lg" style="width: 90%; height: 92%">
       <img
         src="https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/slideshows/health_benefits_of_cherries_slideshow/1800x1200_health_benefits_of_cherries_slideshow.jpg"
         width="250"
@@ -96,11 +303,22 @@ endblock pagetitle %} {% block body %}
       <center>
         <p class="lead" style="font-weight: 500; color: black">Cherry</p>
       </center>
-    </div>
+    </div> -->
   </div>
 
   <div class="col">
-    <div class="p-3 bg-white shadow rounded-lg" style="width: 90%; height: 92%">
+    <div class="card 1">
+      <div class="card_image">
+        <img
+          src="https://images.pexels.com/photos/1459331/pexels-photo-1459331.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        />
+      </div>
+      <div class="card_title title-white">
+        <p>Corn</p>
+      </div>
+    </div>
+
+    <!-- <div class="p-3 bg-white shadow rounded-lg" style="width: 90%; height: 92%">
       <img
         src="https://images.pexels.com/photos/1459331/pexels-photo-1459331.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         width="250"
@@ -109,145 +327,286 @@ endblock pagetitle %} {% block body %}
       <center>
         <p class="lead" style="font-weight: 500; color: black">Corn</p>
       </center>
-    </div>
+    </div>-->
   </div>
 </div>
 
+<!-- Row 2 -->
 <div class="row p-5 laptop">
   <div class="col">
-    <div class="p-3 bg-white shadow rounded-lg" style="width: 90%; height: 92%">
-      <img
-        src="https://i.ndtvimg.com/i/2015-09/grapes_625x350_61443376353.jpg"
-        width="250"
-        height="250"
-      />
-      <center>
-        <p class="lead" style="font-weight: 500; color: black">Grape</p>
-      </center>
+    <div class="card 1">
+      <div class="card_image">
+        <img
+          src="https://i.ndtvimg.com/i/2015-09/grapes_625x350_61443376353.jpg"
+        />
+      </div>
+      <div class="card_title title-white">
+        <p>Grape</p>
+      </div>
     </div>
+    <!-- <div
+        class="p-3 bg-white shadow rounded-lg"
+        style="width: 90%; height: 92%"
+      >
+        <img
+          src="https://i.ndtvimg.com/i/2015-09/grapes_625x350_61443376353.jpg"
+          width="250"
+          height="250"
+        />
+        <center>
+          <p class="lead" style="font-weight: 500; color: black">Grape</p>
+        </center>
+      </div> -->
   </div>
+
   <div class="col">
-    <div class="p-3 bg-white shadow rounded-lg" style="width: 90%; height: 92%">
-      <img
-        src="https://www.irishtimes.com/polopoly_fs/1.3923226.1560339148!/image/image.jpg_gen/derivatives/ratio_1x1_w1200/image.jpg"
-        width="250"
-        height="250"
-      />
-      <center>
-        <p class="lead" style="font-weight: 500; color: black">Orange</p>
-      </center>
+    <div class="card 1">
+      <div class="card_image">
+        <img
+          src="https://www.irishtimes.com/polopoly_fs/1.3923226.1560339148!/image/image.jpg_gen/derivatives/ratio_1x1_w1200/image.jpg"
+        />
+      </div>
+      <div class="card_title title-white">
+        <p>Orange</p>
+      </div>
     </div>
+    <!-- <div
+        class="p-3 bg-white shadow rounded-lg"
+        style="width: 90%; height: 92%"
+      >
+        <img
+          src="https://www.irishtimes.com/polopoly_fs/1.3923226.1560339148!/image/image.jpg_gen/derivatives/ratio_1x1_w1200/image.jpg"
+          width="250"
+          height="250"
+        />
+        <center>
+          <p class="lead" style="font-weight: 500; color: black">Orange</p>
+        </center>
+      </div> -->
   </div>
+
   <div class="col">
-    <div class="p-3 bg-white shadow rounded-lg" style="width: 90%; height: 92%">
-      <img
-        src="https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/articles/health_tools/the_health_benefits_of_peaches_slideshow/thinkstock_rf_peaches.jpg?resize=650px:*"
-        width="250"
-        height="250"
-      />
-      <center>
-        <p class="lead" style="font-weight: 500; color: black">Peach</p>
-      </center>
+    <div class="card 1">
+      <div class="card_image">
+        <img
+          src="https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/articles/health_tools/the_health_benefits_of_peaches_slideshow/thinkstock_rf_peaches.jpg?resize=650px:*"
+        />
+      </div>
+      <div class="card_title title-white">
+        <p>Peach</p>
+      </div>
     </div>
+    <!-- <div
+        class="p-3 bg-white shadow rounded-lg"
+        style="width: 90%; height: 92%"
+      >
+        <img
+          src="https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/articles/health_tools/the_health_benefits_of_peaches_slideshow/thinkstock_rf_peaches.jpg?resize=650px:*"
+          width="250"
+          height="250"
+        />
+        <center>
+          <p class="lead" style="font-weight: 500; color: black">Peach</p>
+        </center>
+      </div> -->
   </div>
+
   <div class="col">
-    <div class="p-3 bg-white shadow rounded-lg" style="width: 90%; height: 92%">
-      <img
-        src="https://images.pexels.com/photos/128536/pexels-photo-128536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        width="250"
-        height="250"
-      />
-      <center>
-        <p class="lead" style="font-weight: 500; color: black">Pepper Bell</p>
-      </center>
+    <div class="card 1">
+      <div class="card_image">
+        <img
+          src="https://images.pexels.com/photos/128536/pexels-photo-128536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        />
+      </div>
+      <div class="card_title title-white">
+        <p>Pepper Bell</p>
+      </div>
     </div>
+    <!-- <div
+        class="p-3 bg-white shadow rounded-lg"
+        style="width: 90%; height: 92%"
+      >
+        <img
+          src="https://images.pexels.com/photos/128536/pexels-photo-128536.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          width="250"
+          height="250"
+        />
+        <center>
+          <p class="lead" style="font-weight: 500; color: black">Pepper Bell</p>
+        </center>
+      </div>
+    </div> -->
   </div>
 </div>
 
+<!-- row 3 -->
 <div class="row p-5 laptop">
   <div class="col">
-    <div class="p-3 bg-white shadow rounded-lg" style="width: 90%; height: 92%">
-      <img
-        src="https://m.economictimes.com/thumb/height-450,width-600,imgsize-111140,msid-72862126/potato-getty.jpg"
-        width="250"
-        height="250"
-      />
-      <center>
-        <p class="lead" style="font-weight: 500; color: black">Potato</p>
-      </center>
+    <div class="card 1">
+      <div class="card_image">
+        <img
+          src="https://m.economictimes.com/thumb/height-450,width-600,imgsize-111140,msid-72862126/potato-getty.jpg"
+        />
+      </div>
+      <div class="card_title title-white">
+        <p>Potato</p>
+      </div>
     </div>
+    <!-- <div
+          class="p-3 bg-white shadow rounded-lg"
+          style="width: 90%; height: 92%"
+        >
+          <img
+            src="https://m.economictimes.com/thumb/height-450,width-600,imgsize-111140,msid-72862126/potato-getty.jpg"
+            width="250"
+            height="250"
+          />
+          <center>
+            <p class="lead" style="font-weight: 500; color: black">Potato</p>
+          </center>
+        </div> -->
   </div>
+
   <div class="col">
-    <div class="p-3 bg-white shadow rounded-lg" style="width: 90%; height: 92%">
-      <img
-        src="https://i0.wp.com/cdn-prod.medicalnewstoday.com/content/images/articles/326/326272/raspberries-with-ketones-in-a-bowl.jpg?w=1155&h=1541"
-        width="250"
-        height="250"
-      />
-      <center>
-        <p class="lead" style="font-weight: 500; color: black">Raspberry</p>
-      </center>
+    <div class="card 1">
+      <div class="card_image">
+        <img
+          src="https://i0.wp.com/cdn-prod.medicalnewstoday.com/content/images/articles/326/326272/raspberries-with-ketones-in-a-bowl.jpg?w=1155&h=1541"
+        />
+      </div>
+      <div class="card_title title-white">
+        <p>Raspberry</p>
+      </div>
     </div>
+
+    <!-- <div
+          class="p-3 bg-white shadow rounded-lg"
+          style="width: 90%; height: 92%"
+        >
+          <img
+            src="https://i0.wp.com/cdn-prod.medicalnewstoday.com/content/images/articles/326/326272/raspberries-with-ketones-in-a-bowl.jpg?w=1155&h=1541"
+            width="250"
+            height="250"
+          />
+          <center>
+            <p class="lead" style="font-weight: 500; color: black">Raspberry</p>
+          </center>
+        </div> -->
   </div>
+
   <div class="col">
-    <div class="p-3 bg-white shadow rounded-lg" style="width: 90%; height: 92%">
-      <img
-        src="https://m.economictimes.com/thumb/msid-66988154,width-1200,height-900,resizemode-4,imgsize-211276/soyabean-agencies.jpg"
-        width="250"
-        height="250"
-      />
-      <center>
-        <p class="lead" style="font-weight: 500; color: black">Soybean</p>
-      </center>
+    <div class="card 1">
+      <div class="card_image">
+        <img
+          src="https://m.economictimes.com/thumb/msid-66988154,width-1200,height-900,resizemode-4,imgsize-211276/soyabean-agencies.jpg"
+        />
+      </div>
+      <div class="card_title title-white">
+        <p>Soybean</p>
+      </div>
     </div>
+
+    <!-- <div
+          class="p-3 bg-white shadow rounded-lg"
+          style="width: 90%; height: 92%"
+        >
+          <img
+            src="https://m.economictimes.com/thumb/msid-66988154,width-1200,height-900,resizemode-4,imgsize-211276/soyabean-agencies.jpg"
+            width="250"
+            height="250"
+          />
+          <center>
+            <p class="lead" style="font-weight: 500; color: black">Soybean</p>
+          </center>
+        </div> -->
   </div>
+
   <div class="col">
-    <div class="p-3 bg-white shadow rounded-lg" style="width: 90%; height: 92%">
-      <img
-        src="https://post.healthline.com/wp-content/uploads/2020/08/squash-fruit-or-vegetable-732x549-thumbnail-732x549.jpg"
-        width="250"
-        height="250"
-      />
-      <center>
-        <p class="lead" style="font-weight: 500; color: black">Squash</p>
-      </center>
+    <div class="card 1">
+      <div class="card_image">
+        <img
+          src="https://post.healthline.com/wp-content/uploads/2020/08/squash-fruit-or-vegetable-732x549-thumbnail-732x549.jpg"
+        />
+      </div>
+      <div class="card_title title-white">
+        <p>Squash</p>
+      </div>
     </div>
+
+    <!-- <div
+          class="p-3 bg-white shadow rounded-lg"
+          style="width: 90%; height: 92%"
+        >
+          <img
+            src="https://post.healthline.com/wp-content/uploads/2020/08/squash-fruit-or-vegetable-732x549-thumbnail-732x549.jpg"
+            width="250"
+            height="250"
+          />
+          <center>
+            <p class="lead" style="font-weight: 500; color: black">Squash</p>
+          </center>
+        </div> -->
   </div>
 </div>
 
 <center class="laptop">
   <div class="row p-5">
     <div class="col">
-      <div
-        class="p-3 bg-white shadow rounded-lg"
-        style="width: 45%; height: 92%"
-      >
-        <img
-          src="https://images.indianexpress.com/2020/02/strawberry-1200.jpg"
-          width="250"
-          height="250"
-        />
-        <center>
-          <p class="lead" style="font-weight: 500; color: black">Strawberry</p>
-        </center>
+      <div class="card 1">
+        <div class="card_image">
+          <img
+            src="https://images.indianexpress.com/2020/02/strawberry-1200.jpg"
+          />
+        </div>
+        <div class="card_title title-white">
+          <p>Strawberry</p>
+        </div>
       </div>
+
+      <!-- <div
+              class="p-3 bg-white shadow rounded-lg"
+              style="width: 45%; height: 92%"
+            >
+              <img
+                src="https://images.indianexpress.com/2020/02/strawberry-1200.jpg"
+                width="250"
+                height="250"
+              />
+              <center>
+                <p class="lead" style="font-weight: 500; color: black">
+                  Strawberry
+                </p>
+              </center>
+            </div> -->
     </div>
+
     <div class="col">
-      <div
-        class="p-3 bg-white shadow rounded-lg"
-        style="width: 45%; height: 92%"
-      >
-        <img
-          src="https://images-prod.healthline.com/hlcmsresource/images/AN_images/tomatoes-1296x728-feature.jpg"
-          width="250"
-          height="250"
-        />
-        <center>
-          <p class="lead" style="font-weight: 500; color: black">Tomato</p>
-        </center>
+      <div class="card 1">
+        <div class="card_image">
+          <img
+            src="https://images-prod.healthline.com/hlcmsresource/images/AN_images/tomatoes-1296x728-feature.jpg"
+          />
+        </div>
+        <div class="card_title title-white">
+          <p>Tomato</p>
+        </div>
       </div>
+      <!-- <div
+              class="p-3 bg-white shadow rounded-lg"
+              style="width: 45%; height: 92%"
+            >
+              <img
+                src="https://images-prod.healthline.com/hlcmsresource/images/AN_images/tomatoes-1296x728-feature.jpg"
+                width="250"
+                height="250"
+              />
+              <center>
+                <p class="lead" style="font-weight: 500; color: black">
+                  Tomato
+                </p>
+              </center>
+            </div> -->
     </div>
   </div>
 </center>
-
 {% endblock body %}

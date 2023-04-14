@@ -24,9 +24,9 @@
 
     <title>{% block pagetitle %} {% endblock pagetitle %}</title>
     <style>
-      * {
+      /* * {
         border: 1px solid black;
-      }
+      } */
       .bg {
         background-image: url("images/background.jpeg");
 
@@ -44,8 +44,8 @@
 
       body {
         background-color: #4ecc5a;
-        /* background: -webkit-linear-gradient(to right, #66a776, #043610);
-            background: linear-gradient(to right, #5d9c6a, #059b0d); */
+        /* background: -webkit-linear-gradient(to right, #39894d, #085c1b);
+        background: linear-gradient(to right, #2c7b3c, #059b0d); */
         height: 100vh;
       }
 
@@ -168,7 +168,10 @@
         </ul>
       </div>
     </nav>
+
     {% block body %} {% endblock body %}
+
+    <!-- footer -->
     <div class="footer-basic">
       <footer>
         <center>
@@ -200,6 +203,7 @@
 
         <br />
 
+        <!-- Footer links -->
         <ul class="list-inline">
           <li class="list-inline-item"><a href="/">Home</a></li>
 
@@ -217,29 +221,12 @@
             <a href="/index">AI Engine</a>
           </li>
         </ul>
-
+        <!-- copyright -->
         <p class="copyright">Created by Team Falcon</p>
       </footer>
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
   </body>
-  <!-- <script>
-    if (window.matchMedia("(max-width: 767px)").matches)
-    {
-        // The viewport is less than 768 pixels wide
-        document.write("This is a mobile device.");
-        window.location.replace('/mobile-device');
-
-    } else {
-        
-        // The viewport is at least 768 pixels wide
-        document.write("This is a tablet or desktop.");
-    }
-</script> -->
-  <!-- <script>
-    if(screen.width <= 700){
-        document.location = 'manthan2.html';
-    }
-</script> -->
 </html>

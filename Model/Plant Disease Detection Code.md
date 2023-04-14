@@ -1,12 +1,10 @@
 ### Import Dependencies
 
-
 ```python
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 ```
-
 
 ```python
 import torch
@@ -17,19 +15,15 @@ import torch.nn.functional as F
 from datetime import datetime
 ```
 
-
 ```python
 %load_ext nb_black
 ```
 
-
     <IPython.core.display.Javascript object>
-
 
 ### Import Dataset
 
-<b> Dataset Link (Plant Vliiage Dataset ):</b><br> <a href='https://data.mendeley.com/datasets/tywbtsjrjv/1'> https://data.mendeley.com/datasets/tywbtsjrjv/1 </a> 
-
+<b> Dataset Link (Plant Vliiage Dataset ):</b><br> <a href='https://data.mendeley.com/datasets/tywbtsjrjv/1'> https://data.mendeley.com/datasets/tywbtsjrjv/1 </a>
 
 ```python
 transform = transforms.Compose(
@@ -37,26 +31,17 @@ transform = transforms.Compose(
 )
 ```
 
-
     <IPython.core.display.Javascript object>
-
-
 
 ```python
 dataset = datasets.ImageFolder("Dataset", transform=transform)
 ```
 
-
     <IPython.core.display.Javascript object>
-
-
 
 ```python
 dataset
 ```
-
-
-
 
     Dataset ImageFolder
         Number of datapoints: 61486
@@ -73,46 +58,33 @@ dataset
 
     <IPython.core.display.Javascript object>
 
-
-
 ```python
 indices = list(range(len(dataset)))
 ```
 
-
     <IPython.core.display.Javascript object>
-
-
 
 ```python
 split = int(np.floor(0.85 * len(dataset)))  # train_size
 ```
 
-
     <IPython.core.display.Javascript object>
-
-
 
 ```python
 validation = int(np.floor(0.70 * split))  # validation
 ```
 
-
     <IPython.core.display.Javascript object>
-
-
 
 ```python
 print(0, validation, split, len(dataset))
 ```
 
     0 36584 52263 61486
-    
+
 
 
     <IPython.core.display.Javascript object>
-
-
 
 ```python
 print(f"length of train size :{validation}")
@@ -123,23 +95,18 @@ print(f"length of test size :{len(dataset)-validation}")
     length of train size :36584
     length of validation size :15679
     length of test size :24902
-    
+
 
 
     <IPython.core.display.Javascript object>
-
-
 
 ```python
 np.random.shuffle(indices)
 ```
 
-
     <IPython.core.display.Javascript object>
 
-
 ### Split into Train and Test
-
 
 ```python
 train_indices, validation_indices, test_indices = (
@@ -149,10 +116,7 @@ train_indices, validation_indices, test_indices = (
 )
 ```
 
-
     <IPython.core.display.Javascript object>
-
-
 
 ```python
 train_sampler = SubsetRandomSampler(train_indices)
@@ -160,18 +124,13 @@ validation_sampler = SubsetRandomSampler(validation_indices)
 test_sampler = SubsetRandomSampler(test_indices)
 ```
 
-
     <IPython.core.display.Javascript object>
-
-
 
 ```python
 targets_size = len(dataset.class_to_idx)
 ```
 
-
     <IPython.core.display.Javascript object>
-
 
 ### Model
 
@@ -183,28 +142,23 @@ S = Stride <br>
 
 ### Transfer Learning
 
-
 ```python
 # model = models.vgg16(pretrained=True)
 ```
-
 
 ```python
 # for params in model.parameters():
 #     params.requires_grad = False
 ```
 
-
 ```python
 # model
 ```
-
 
 ```python
 # n_features = model.classifier[0].in_features
 # n_features
 ```
-
 
 ```python
 # model.classifier = nn.Sequential(
@@ -215,13 +169,11 @@ S = Stride <br>
 # )
 ```
 
-
 ```python
 # model
 ```
 
 ### Original Modeling
-
 
 ```python
 class CNN(nn.Module):
@@ -282,10 +234,7 @@ class CNN(nn.Module):
         return out
 ```
 
-
     <IPython.core.display.Javascript object>
-
-
 
 ```python
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -293,37 +242,26 @@ print(device)
 ```
 
     cpu
-    
+
 
 
     <IPython.core.display.Javascript object>
-
-
 
 ```python
 device = "cpu"
 ```
 
-
     <IPython.core.display.Javascript object>
-
-
 
 ```python
 model = CNN(targets_size)
 ```
 
-
     <IPython.core.display.Javascript object>
-
-
 
 ```python
 model.to(device)
 ```
-
-
-
 
     CNN(
       (conv_layers): Sequential(
@@ -369,8 +307,6 @@ model.to(device)
 
 
     <IPython.core.display.Javascript object>
-
-
 
 ```python
 from torchsummary import summary
@@ -424,24 +360,19 @@ summary(model, (3, 224, 224))
     Params size (MB): 200.64
     Estimated Total Size (MB): 345.17
     ----------------------------------------------------------------
-    
+
 
 
     <IPython.core.display.Javascript object>
-
-
 
 ```python
 criterion = nn.CrossEntropyLoss()  # this include softmax + cross entropy loss
 optimizer = torch.optim.Adam(model.parameters())
 ```
 
-
     <IPython.core.display.Javascript object>
 
-
 ### Batch Gradient Descent
-
 
 ```python
 def batch_gd(model, criterion, train_loader, test_laoder, epochs):
@@ -493,19 +424,13 @@ def batch_gd(model, criterion, train_loader, test_laoder, epochs):
     return train_losses, validation_losses
 ```
 
-
     <IPython.core.display.Javascript object>
-
-
 
 ```python
 device = "cpu"
 ```
 
-
     <IPython.core.display.Javascript object>
-
-
 
 ```python
 batch_size = 64
@@ -520,10 +445,7 @@ validation_loader = torch.utils.data.DataLoader(
 )
 ```
 
-
     <IPython.core.display.Javascript object>
-
-
 
 ```python
 train_losses, validation_losses = batch_gd(
@@ -531,23 +453,17 @@ train_losses, validation_losses = batch_gd(
 )
 ```
 
-
     <IPython.core.display.Javascript object>
 
-
 ### Save the Model
-
 
 ```python
 # torch.save(model.state_dict() , 'plant_disease_model_1.pt')
 ```
 
-
     <IPython.core.display.Javascript object>
 
-
 ### Load Model
-
 
 ```python
 targets_size = 39
@@ -555,9 +471,6 @@ model = CNN(targets_size)
 model.load_state_dict(torch.load("plant_disease_model_1_latest.pt"))
 model.eval()
 ```
-
-
-
 
     CNN(
       (conv_layers): Sequential(
@@ -599,15 +512,11 @@ model.eval()
       )
     )
 
-
-
-
 ```python
 # %matplotlib notebook
 ```
 
 ### Plot the loss
-
 
 ```python
 plt.plot(train_losses , label = 'train_loss')
@@ -619,7 +528,6 @@ plt.show()
 ```
 
 ### Accuracy
-
 
 ```python
 def accuracy(loader):
@@ -640,17 +548,13 @@ def accuracy(loader):
     return acc
 ```
 
-
     <IPython.core.display.Javascript object>
-
-
 
 ```python
 train_acc = accuracy(train_loader)
 test_acc = accuracy(test_loader)
 validation_acc = accuracy(validation_loader)
 ```
-
 
 ```python
 print(
@@ -661,19 +565,16 @@ print(
     Train Accuracy : 96.7
     Test Accuracy : 98.9
     Validation Accuracy : 98.7
-    
+
 
 
     <IPython.core.display.Javascript object>
 
-
 ### Single Image Prediction
-
 
 ```python
 transform_index_to_disease = dataset.class_to_idx
 ```
-
 
     ---------------------------------------------------------------------------
 
@@ -681,7 +582,7 @@ transform_index_to_disease = dataset.class_to_idx
 
     <ipython-input-9-0e3bd74576a2> in <module>
     ----> 1 transform_index_to_disease = dataset.class_to_idx
-    
+
 
     NameError: name 'dataset' is not defined
 
@@ -689,14 +590,11 @@ transform_index_to_disease = dataset.class_to_idx
 
     <IPython.core.display.Javascript object>
 
-
-
 ```python
 transform_index_to_disease = dict(
     [(value, key) for key, value in transform_index_to_disease.items()]
 )  # reverse the index
 ```
-
 
     ---------------------------------------------------------------------------
 
@@ -706,7 +604,7 @@ transform_index_to_disease = dict(
           1 transform_index_to_disease = dict(
     ----> 2     [(value, key) for key, value in transform_index_to_disease.items()]
           3 )  # reverse the index
-    
+
 
     NameError: name 'transform_index_to_disease' is not defined
 
@@ -714,18 +612,14 @@ transform_index_to_disease = dict(
 
     <IPython.core.display.Javascript object>
 
-
-
 ```python
 data = pd.read_csv("disease_info.csv", encoding="cp1252")
 ```
-
 
 ```python
 from PIL import Image
 import torchvision.transforms.functional as TF
 ```
-
 
 ```python
 def single_prediction(image_path):
@@ -741,17 +635,14 @@ def single_prediction(image_path):
     print(pred_csv)
 ```
 
-
 ```python
 single_prediction("test_images/Apple_ceder_apple_rust.JPG")
 ```
 
     Original :  Apple_ceder_apple_rust
     Apple : Cedar rust
-    
 
 ### Wrong Prediction
-
 
 ```python
 single_prediction("test_images/Apple_scab.JPG")
@@ -759,8 +650,6 @@ single_prediction("test_images/Apple_scab.JPG")
 
     Original :  Apple_scab
     Tomato : Septoria Leaf Spot
-    
-
 
 ```python
 single_prediction("test_images/Grape_esca.JPG")
@@ -768,8 +657,6 @@ single_prediction("test_images/Grape_esca.JPG")
 
     Original :  Grape_esca
     Grape : Esca | Black Measles
-    
-
 
 ```python
 single_prediction("test_images/apple_black_rot.JPG")
@@ -777,8 +664,6 @@ single_prediction("test_images/apple_black_rot.JPG")
 
     Original :  apple_black_rot
     Pepper bell : Healthy
-    
-
 
 ```python
 single_prediction("test_images/apple_healthy.JPG")
@@ -786,8 +671,6 @@ single_prediction("test_images/apple_healthy.JPG")
 
     Original :  apple_healthy
     Apple : Healthy
-    
-
 
 ```python
 single_prediction("test_images/background_without_leaves.jpg")
@@ -795,8 +678,6 @@ single_prediction("test_images/background_without_leaves.jpg")
 
     Original :  background_without_leaves
     Background Without Leaves
-    
-
 
 ```python
 single_prediction("test_images/blueberry_healthy.JPG")
@@ -804,8 +685,6 @@ single_prediction("test_images/blueberry_healthy.JPG")
 
     Original :  blueberry_healthy
     Blueberry : Healthy
-    
-
 
 ```python
 single_prediction("test_images/cherry_healthy.JPG")
@@ -813,8 +692,6 @@ single_prediction("test_images/cherry_healthy.JPG")
 
     Original :  cherry_healthy
     Cherry : Healthy
-    
-
 
 ```python
 single_prediction("test_images/cherry_powdery_mildew.JPG")
@@ -822,8 +699,6 @@ single_prediction("test_images/cherry_powdery_mildew.JPG")
 
     Original :  cherry_powdery_mildew
     Cherry : Powdery Mildew
-    
-
 
 ```python
 single_prediction("test_images/corn_cercospora_leaf.JPG")
@@ -831,8 +706,6 @@ single_prediction("test_images/corn_cercospora_leaf.JPG")
 
     Original :  corn_cercospora_leaf
     Corn : Cercospora Leaf Spot | Gray Leaf Spot
-    
-
 
 ```python
 single_prediction("test_images/corn_common_rust.JPG")
@@ -840,8 +713,6 @@ single_prediction("test_images/corn_common_rust.JPG")
 
     Original :  corn_common_rust
     Corn : Common Rust
-    
-
 
 ```python
 single_prediction("test_images/corn_healthy.jpg")
@@ -849,8 +720,6 @@ single_prediction("test_images/corn_healthy.jpg")
 
     Original :  corn_healthy
     Corn : Healthy
-    
-
 
 ```python
 single_prediction("test_images/corn_northen_leaf_blight.JPG")
@@ -858,8 +727,6 @@ single_prediction("test_images/corn_northen_leaf_blight.JPG")
 
     Original :  corn_northen_leaf_blight
     Corn : Northern Leaf Blight
-    
-
 
 ```python
 single_prediction("test_images/grape_black_rot.JPG")
@@ -867,8 +734,6 @@ single_prediction("test_images/grape_black_rot.JPG")
 
     Original :  grape_black_rot
     Grape : Black Rot
-    
-
 
 ```python
 single_prediction("test_images/grape_healthy.JPG")
@@ -876,8 +741,6 @@ single_prediction("test_images/grape_healthy.JPG")
 
     Original :  grape_healthy
     Grape : Healthy
-    
-
 
 ```python
 single_prediction("test_images/grape_leaf_blight.JPG")
@@ -885,8 +748,6 @@ single_prediction("test_images/grape_leaf_blight.JPG")
 
     Original :  grape_leaf_blight
     Grape : Leaf Blight | Isariopsis Leaf Spot
-    
-
 
 ```python
 single_prediction("test_images/orange_haunglongbing.JPG")
@@ -894,8 +755,6 @@ single_prediction("test_images/orange_haunglongbing.JPG")
 
     Original :  orange_haunglongbing
     Orange : Haunglongbing | Citrus Greening
-    
-
 
 ```python
 single_prediction("test_images/peach_bacterial_spot.JPG")
@@ -903,8 +762,6 @@ single_prediction("test_images/peach_bacterial_spot.JPG")
 
     Original :  peach_bacterial_spot
     Peach : Bacterial Spot
-    
-
 
 ```python
 single_prediction("test_images/peach_healthy.JPG")
@@ -912,8 +769,6 @@ single_prediction("test_images/peach_healthy.JPG")
 
     Original :  peach_healthy
     Peach : Healthy
-    
-
 
 ```python
 single_prediction("test_images/pepper_bacterial_spot.JPG")
@@ -921,8 +776,6 @@ single_prediction("test_images/pepper_bacterial_spot.JPG")
 
     Original :  pepper_bacterial_spot
     Pepper bell : Healthy
-    
-
 
 ```python
 single_prediction("test_images/pepper_bell_healthy.JPG")
@@ -930,8 +783,6 @@ single_prediction("test_images/pepper_bell_healthy.JPG")
 
     Original :  pepper_bell_healthy
     Pepper bell : Healthy
-    
-
 
 ```python
 single_prediction("test_images/potato_early_blight.JPG")
@@ -939,8 +790,6 @@ single_prediction("test_images/potato_early_blight.JPG")
 
     Original :  potato_early_blight
     Potato : Early Blight
-    
-
 
 ```python
 single_prediction("test_images/potato_healthy.JPG")
@@ -948,8 +797,6 @@ single_prediction("test_images/potato_healthy.JPG")
 
     Original :  potato_healthy
     Potato : Healthy
-    
-
 
 ```python
 single_prediction("test_images/potato_late_blight.JPG")
@@ -957,8 +804,6 @@ single_prediction("test_images/potato_late_blight.JPG")
 
     Original :  potato_late_blight
     Potato : Late Blight
-    
-
 
 ```python
 single_prediction("test_images/raspberry_healthy.JPG")
@@ -966,8 +811,6 @@ single_prediction("test_images/raspberry_healthy.JPG")
 
     Original :  raspberry_healthy
     Raspberry : Healthy
-    
-
 
 ```python
 single_prediction("test_images/soyaben healthy.JPG")
@@ -975,8 +818,6 @@ single_prediction("test_images/soyaben healthy.JPG")
 
     Original :  soyaben healthy
     Soybean : Healthy
-    
-
 
 ```python
 single_prediction("test_images/potato_late_blight.JPG")
@@ -984,8 +825,6 @@ single_prediction("test_images/potato_late_blight.JPG")
 
     Original :  potato_late_blight
     Potato : Late Blight
-    
-
 
 ```python
 single_prediction("test_images/squash_powdery_mildew.JPG")
@@ -993,8 +832,6 @@ single_prediction("test_images/squash_powdery_mildew.JPG")
 
     Original :  squash_powdery_mildew
     Squash : Powdery Mildew
-    
-
 
 ```python
 single_prediction("test_images/starwberry_healthy.JPG")
@@ -1002,8 +839,6 @@ single_prediction("test_images/starwberry_healthy.JPG")
 
     Original :  starwberry_healthy
     Strawberry : Healthy
-    
-
 
 ```python
 single_prediction("test_images/starwberry_leaf_scorch.JPG")
@@ -1011,8 +846,6 @@ single_prediction("test_images/starwberry_leaf_scorch.JPG")
 
     Original :  starwberry_leaf_scorch
     Strawberry : Leaf Scorch
-    
-
 
 ```python
 single_prediction("test_images/tomato_bacterial_spot.JPG")
@@ -1020,8 +853,6 @@ single_prediction("test_images/tomato_bacterial_spot.JPG")
 
     Original :  tomato_bacterial_spot
     Tomato : Early Blight
-    
-
 
 ```python
 single_prediction("test_images/tomato_early_blight.JPG")
@@ -1029,8 +860,6 @@ single_prediction("test_images/tomato_early_blight.JPG")
 
     Original :  tomato_early_blight
     Tomato : Early Blight
-    
-
 
 ```python
 single_prediction("test_images/tomato_healthy.JPG")
@@ -1038,8 +867,6 @@ single_prediction("test_images/tomato_healthy.JPG")
 
     Original :  tomato_healthy
     Tomato : Healthy
-    
-
 
 ```python
 single_prediction("test_images/tomato_late_blight.JPG")
@@ -1047,8 +874,6 @@ single_prediction("test_images/tomato_late_blight.JPG")
 
     Original :  tomato_late_blight
     Tomato : Late Blight
-    
-
 
 ```python
 single_prediction("test_images/tomato_leaf_mold.JPG")
@@ -1056,8 +881,6 @@ single_prediction("test_images/tomato_leaf_mold.JPG")
 
     Original :  tomato_leaf_mold
     Tomato : Leaf Mold
-    
-
 
 ```python
 single_prediction("test_images/tomato_mosaic_virus.JPG")
@@ -1065,8 +888,6 @@ single_prediction("test_images/tomato_mosaic_virus.JPG")
 
     Original :  tomato_mosaic_virus
     Tomato : Mosaic Virus
-    
-
 
 ```python
 single_prediction("test_images/tomato_septoria_leaf_spot.JPG")
@@ -1074,8 +895,6 @@ single_prediction("test_images/tomato_septoria_leaf_spot.JPG")
 
     Original :  tomato_septoria_leaf_spot
     Tomato : Septoria Leaf Spot
-    
-
 
 ```python
 single_prediction("test_images/tomato_spider_mites_two_spotted_spider_mites.JPG")
@@ -1083,8 +902,6 @@ single_prediction("test_images/tomato_spider_mites_two_spotted_spider_mites.JPG"
 
     Original :  tomato_spider_mites_two_spotted_spider_mites
     Tomato : Spider Mites | Two-Spotted Spider Mite
-    
-
 
 ```python
 single_prediction("test_images/tomato_target_spot.JPG")
@@ -1092,8 +909,6 @@ single_prediction("test_images/tomato_target_spot.JPG")
 
     Original :  tomato_target_spot
     Tomato : Target Spot
-    
-
 
 ```python
 single_prediction("test_images/tomato_yellow_leaf_curl_virus.JPG")
@@ -1101,4 +916,3 @@ single_prediction("test_images/tomato_yellow_leaf_curl_virus.JPG")
 
     Original :  tomato_yellow_leaf_curl_virus
     Tomato : Yellow Leaf Curl Virus
-    
