@@ -79,8 +79,8 @@
 
               <!-- Custom bootstrap upload file-->
               <center>
-                <a class="hide mx-2">
-                  <button type="submit" class="hide">
+                <a class="mx-2">
+                  <button type="submit" id="uploadBtn" disabled>
                     Submit
                     <span class="first"></span>
                     <span class="second"></span>
@@ -119,14 +119,7 @@
       </div>
     </div>
   </div>
-
-  <script>
-    const actualBtn = document.getElementById("actual-btn");
-    const fileChosen = document.getElementById("file-chosen");
-    actualBtn.addEventListener("change", function () {
-      fileChosen.textContent = this.files[0].name;
-    });
-  </script>
+  <script src="{{url_for('static', filename='scripts/index.js')}}"></script>
 
   {% endblock body %}
 </html>
