@@ -21,19 +21,14 @@
     ],
     "meta-charset-utf-8": "off",
     "meta-viewport": "off",
-    "compat-api/css": [
-      "default",
-      {
-        "ignore": [
-          "backdrop-filter"
-        ]
-      }
-    ],
+    "compat-api/css": "off",
     "axe/structure": [
       "default",
       {
         "list": "off"
       }
-    ]
+    ],
+    "detect-css-reflows/composite": "off",
+    "detect-css-reflows/paint": "off"
   }
 }

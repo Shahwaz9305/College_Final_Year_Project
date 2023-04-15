@@ -2,6 +2,7 @@ body {
   background-color: #51ca5e;
   height: 100vh;
   margin-top: 60px;
+  overflow-x: hidden;
 }
 
 .file-upload input[type="file"] {

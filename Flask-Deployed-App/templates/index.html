@@ -4,6 +4,14 @@
   {% block pagetitle %} AI Engine {% endblock pagetitle %}
   <!-- Fill inside the body block -->
   {% block body %}
+
+  <head>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='styles/index.css')}}"
+    />
+  </head>
+
   <div>
     <!-- Why is it necessary to detect disease in plant box -->
     <div class="container">
@@ -24,7 +32,7 @@
       <!-- End -->
       <div class="row">
         <div class="col mx-auto">
-          <div class="p-5 bg-white shadow rounded-lg" style="height: 95%">
+          <div class="card p-5 bg-white shadow rounded-lg" style="height: 95%">
             <h5><b>Why is it necessary to detect disease in plant ?</b></h5>
             <p>
               Plant diseases affect the growth of their respective species. In
@@ -42,7 +50,7 @@
 
         <!-- Middle box -->
         <div class="col mx-auto">
-          <div class="p-5 bg-white shadow rounded-lg" style="height: 95%">
+          <div class="card p-5 bg-white shadow rounded-lg" style="height: 95%">
             <img
               src="https://www.pngjoy.com/pngl/250/4840262_plants-png-indoors-tropical-plant-png-hd-png.png "
               height="300"
@@ -69,11 +77,14 @@
 
               <!-- Custom bootstrap upload file-->
               <center>
-                <a class="mx-2">
-                  <button type="submit" class="btn btn-outline-success">
+                <a class="hide mx-2">
+                  <button type="submit" class="hide">
                     Submit
-                  </button>
-                </a>
+                    <span class="first"></span>
+                    <span class="second"></span>
+                    <span class="third"></span>
+                    <span class="fourth"></span></button
+                ></a>
               </center>
             </form>
             <!-- End -->
@@ -82,7 +93,7 @@
 
         <!-- Prevent Plant Disease steps -->
         <div class="col mx-auto">
-          <div class="p-5 bg-white shadow rounded-lg" style="height: 95%">
+          <div class="card p-5 bg-white shadow rounded-lg" style="height: 95%">
             <h5><b>Prevent Plant Disease follow below steps:</b></h5>
             <ol>
               <li>Follow Good Sanitation Practices.</li>
