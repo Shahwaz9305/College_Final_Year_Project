@@ -1,26 +1,11 @@
-/* * {
-        border: 1px solid black;
-      } */
-.bg {
-  background-image: url("images/background.jpeg");
-
-  height: 100%;
-
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+body {
+  background-color: #51ca5e;
+  height: 100vh;
+  margin-top: 60px;
 }
 
 .file-upload input[type="file"] {
   display: none;
-}
-
-body {
-  background-color: #4ecc5a;
-  /* background: -webkit-linear-gradient(to right, #39894d, #085c1b);
-        background: linear-gradient(to right, #2c7b3c, #059b0d); */
-  height: 100vh;
 }
 
 .rounded-lg {
