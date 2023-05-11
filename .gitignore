@@ -1,2 +1,4 @@
 Flask-Deployed-App/plant_disease_model_1_latest.pt
 test/
+Model/Dataset/
+Model/plant_disease_model_1_latest.pt 
